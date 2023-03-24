@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .activity {
+        color: brown;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <template id="my-app">
+      <div :class="{'activity': isActivity}">{{message}}</div>
+      <!-- 默认class和动态class结合 -->
+      <div
+        class="abc, cba"
+        :class="{'activity': isActivity,'activity2': isActivity}"
+      >
+        {{message}}
+      </div>
+
+      <!-- class对象可以放在一个单独的属性中 -->
+      <div class="abc, cba" :class="classObj">{{message}}</div>
+      <!-- class对象可以放在一个method中 -->
+      <div class="abc, cba" :class="getClass()">{{message}}</div>
+      <button @click="toggle">改变颜色</button>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+      const app = {
+        template: "#my-app",
+        data() {
+          return {
+            message: "Hello World!",
+            isActivity: true,
+            classObj: { activity: true, activity2: true },
+          };
+        },
+        methods: {
+          toggle() {
+            this.isActivity = !this.isActivity;
+          },
+
+          getClass() {
+            return { activity: true, activity2: true };
+          },
+        },
+      };
+
+      Vue.createApp(app).mount("#app");
+    </script>
+  </body>
+</html>
