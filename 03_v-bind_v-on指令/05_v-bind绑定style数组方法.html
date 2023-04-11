@@ -5,11 +5,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .num {
+        color: gray;
+        font-size: 30px;
+      }
+      .operator {
+        color: red;
+        font-size: 30px;
+      }
+      button {
+        margin: 5px;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
     <template id="my-app">
-      <div>{{message}}</div>
+      <!-- 创建一个完整的计算器,数字789一行，456一行，123一行 -->
+      <div>
+        <div>
+          <button @click="addNum(7)">7</button>
+          <button @click="addNum(8)">8</button>
+          <button @click="addNum(9)">9</button>
+        </div>
+        <div>
+          <button @click="addNum(4)">4</button>
+          <button @click="addNum(5)">5</button>
+          <button @click="addNum(6)">6</button>
+        </div>
+        <div>
+          <button @click="addNum(1)">1</button>
+          <button @click="addNum(2)">2</button>
+          <button @click="addNum(3)">3</button>
+        </div>
+        <div>
+          <button @click="addNum(0)">0</button>
+          <button @click="addNum('.')">.</button>
+          <button @click="clear()">C</button>
+        </div>
+        <div>
+          <button id="operator" @click="add()">+</button>
+          <button @click="sub()">-</button>
+          <button @click="mul()">*</button>
+          <button @click="div()">/</button>
+          <button @click="equal()">=</button>
+        </div>
+        <div>
+          <div>{{result}}</div>
+        </div>
+      </div>
     </template>
 
     <script src="../js/vue.js"></script>
@@ -19,7 +64,63 @@
         data() {
           return {
             message: "Hello World!",
+            msg: "<span>我是v-html</span>",
+            num1: 0,
+            num2: 0,
+            result: 0,
+            operator: "",
           };
+        },
+        methods: {
+          add() {
+            this.operator = "+";
+            this.num1 = this.result;
+            this.result = "";
+          },
+          sub() {
+            this.operator = "-";
+            this.num1 = this.result;
+            this.result = "";
+          },
+          mul() {
+            this.operator = "*";
+            this.num1 = this.result;
+            this.result = "";
+          },
+          div() {
+            this.operator = "/";
+            this.num1 = this.result;
+            this.result = "";
+          },
+          addNum(num) {
+            if (this.result === 0) {
+              this.result = "";
+            }
+            this.result += String(num);
+          },
+          clear() {
+            this.result = "";
+            this.num1 = "";
+            this.num2 = "";
+          },
+          equal() {
+            this.num2 = this.result;
+            switch (this.operator) {
+              case "+":
+                // 让num1与num2相加,num1和num2都是字符串,需要转换为数字
+                this.result = Number(this.num1) + Number(this.num2);
+                break;
+              case "-":
+                this.result = this.num1 - this.num2;
+                break;
+              case "*":
+                this.result = this.num1 * this.num2;
+                break;
+              case "/":
+                this.result = this.num1 / this.num2;
+                break;
+            }
+          },
         },
       };
 

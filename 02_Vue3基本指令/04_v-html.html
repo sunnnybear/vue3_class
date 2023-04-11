@@ -23,6 +23,51 @@
             message: "Hello World!",
             msg: "<span>我是v-html</span>",
           };
+        }
+        
+          add() {
+            this.operator = "+";
+            this.num1 = this.result;
+            this.result = "";
+          },
+          sub() {
+            this.operator = "-";
+            this.num1 = this.result;
+            this.result = "";
+          },
+          mul() {
+            this.operator = "*";
+            this.num1 = this.result;
+            this.result = "";
+          },
+          div() {
+            this.operator = "/";
+            this.num1 = this.result;
+            this.result = "";
+          },
+          addNum(num) {
+            this.result += num;
+          },
+          clear() {
+            this.result = "";
+          },
+          equal() {
+            this.num2 = this.result;
+            switch (this.operator) {
+              case "+":
+                this.result = this.num1 + this.num2;
+                break;
+              case "-":
+                this.result = this.num1 - this.num2;
+                break;
+              case "*":
+                this.result = this.num1 * this.num2;
+                break;
+              case "/":
+                this.result = this.num1 / this.num2;
+                break;
+            }
+          },
         },
       };
 
